@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mezcal Mitre — AI Demo by ONE IA</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,sans-serif;background:#000;color:#e5e5e5;overflow-x:hidden}
+.tabs{display:flex;justify-content:center;background:#0a0a0a;border-bottom:1px solid #1e1e1e;position:sticky;top:0;z-index:200}
+.tab{padding:13px 18px;font-size:12px;font-weight:600;color:#71717a;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s}
+.tab:hover{color:#a78bfa}.tab.active{color:#a78bfa;border-bottom-color:#7c3aed}
+.view{display:none}.view.active{display:block}
+.smk{background:#000;min-height:100vh;position:relative}
+.stb{background:#000;border-bottom:1px solid #1a1a1a;padding:5px 12px;display:flex;align-items:center;gap:6px}
+.ann{background:#1a1008;border-bottom:1px solid #2a1a08;padding:7px;text-align:center;font-size:10px;color:#d4a017}
+.snv{background:#000;border-bottom:1px solid #1a1a1a;padding:10px 16px;display:flex;justify-content:space-between;align-items:center}
+.slg{font-size:14px;font-weight:700;color:#d4a017;letter-spacing:1px}
+.slk{display:flex;gap:14px}.slk a{color:#71717a;font-size:10px;text-decoration:none}
+.shr{padding:50px 16px;text-align:center;background:linear-gradient(180deg,#000,#0a0808)}
+.shr h1{font-size:28px;font-weight:800;color:#fafafa;line-height:1.2}.shr h1 em{font-style:normal;color:#d4a017}
+.shr p{font-size:12px;color:#71717a;margin-top:6px}
+.shr .hb{display:inline-block;margin-top:14px;background:#d4a017;color:#000;padding:8px 20px;border-radius:7px;font-weight:700;font-size:12px;text-decoration:none}
+.ssc{padding:28px 16px;max-width:760px;margin:0 auto}
+.ssc h2{font-size:17px;font-weight:700;color:#fafafa;margin-bottom:4px;text-align:center}
+.ssc .su{font-size:11px;color:#71717a;text-align:center;margin-bottom:14px}
+.pg{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.pcd{background:#0e0e0e;border:1px solid #1e1e1e;border-radius:10px;text-align:center;padding:12px;transition:all .2s}
+.pcd:hover{border-color:#d4a017}
+.pcd img{width:100%;height:130px;object-fit:contain;margin-bottom:6px;border-radius:6px}
+.pcd h4{font-size:11px;color:#fafafa}.pcd .pr{color:#d4a017;font-weight:700;font-size:13px;margin-top:2px}.pcd .tg{font-size:8px;color:#71717a;margin-top:2px}
+.rvs{background:#0a0a0a;border-top:1px solid #1e1e1e;padding:28px 16px}
+.rvs h2{text-align:center;font-size:15px;color:#fafafa;margin-bottom:12px}
+.rvg{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;max-width:650px;margin:0 auto}
+.rv{background:#0e0e0e;border:1px solid #1e1e1e;border-radius:8px;padding:12px}
+.rv .rs{color:#d4a017;font-size:11px;margin-bottom:3px}.rv p{font-size:10px;color:#a3a3a3;line-height:1.5;font-style:italic}.rv .ra{font-size:9px;color:#71717a;margin-top:5px;font-style:normal}
+.ibr{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-width:550px;margin:20px auto;text-align:center}
+.ibr div{padding:8px;font-size:9px;color:#a3a3a3}.ibr strong{display:block;color:#d4a017;font-size:11px;margin-bottom:1px}
+.sfr{text-align:center;padding:18px;border-top:1px solid #1e1e1e;font-size:8px;color:#3f3f46}
+.wbb{position:fixed;bottom:18px;right:18px;width:52px;height:52px;background:linear-gradient(135deg,#7c3aed,#6d28d9);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 18px rgba(124,58,237,.4);z-index:150;font-size:22px;transition:transform .2s}
+.wbb:hover{transform:scale(1.1)}
+.wbb .nt{position:absolute;top:-2px;right:-2px;width:14px;height:14px;background:#ef4444;border-radius:50%;font-size:8px;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+.wcht{position:fixed;bottom:78px;right:16px;width:350px;max-height:480px;background:#0b141a;border:1px solid #2a3942;border-radius:14px;z-index:151;display:none;flex-direction:column;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.6)}
+.wcht.open{display:flex}
+.wa{max-width:400px;margin:0 auto;min-height:100vh;background:#0b141a;display:flex;flex-direction:column}
+.wat{background:#1f2c34;padding:9px 12px;display:flex;align-items:center;gap:9px}
+.waav{width:32px;height:32px;background:linear-gradient(135deg,#d4a017,#8b6914);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#000}
+.wanm{font-size:12px;font-weight:600;color:#e9edef}.wast{font-size:9px;color:#8696a0}
+.fsc{max-width:440px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:#0b141a}
+.chh{padding:10px 14px;display:flex;align-items:center;gap:9px;border-bottom:1px solid #2a3942;background:#1f2c34}
+.cha{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;background:linear-gradient(135deg,#d4a017,#8b6914);color:#000}
+.chn{font-size:12px;font-weight:700;color:#e9edef}.chs{font-size:9px;color:#4ade80}
+.chb{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:4px;scroll-behavior:smooth}
+.chb::-webkit-scrollbar{width:2px}.chb::-webkit-scrollbar-thumb{background:#2a3942;border-radius:2px}
+.cm{max-width:85%;padding:7px 11px;border-radius:8px;font-size:13px;line-height:1.7;animation:fi .2s ease}
+@keyframes fi{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+.cmb{background:#1f2c34;color:#e9edef;align-self:flex-start;border-top-left-radius:0}
+.cmu{background:#005c4b;color:#e9edef;align-self:flex-end;border-top-right-radius:0}
+.cm strong{color:#d4a017}.cm a{color:#53bdeb;text-decoration:underline}
+.cm .ct{font-size:8px;color:#667781;text-align:right;margin-top:2px}.cmu .ct{color:#5c9c7e}
+.tp{align-self:flex-start;padding:8px 14px;background:#1f2c34;border-radius:8px;border-top-left-radius:0;display:none;gap:3px;align-items:center}
+.tp.on{display:flex}
+.tp span{width:5px;height:5px;background:#667781;border-radius:50%;animation:tb 1.4s infinite}
+.tp span:nth-child(2){animation-delay:.2s}.tp span:nth-child(3){animation-delay:.4s}
+@keyframes tb{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}}
+.qr{display:flex;flex-wrap:wrap;gap:4px;padding:5px 10px}
+.qrb{background:transparent;border:1px solid #00a88440;color:#00a884;padding:5px 11px;border-radius:16px;font-size:10px;font-weight:500;cursor:pointer;transition:all .15s;white-space:nowrap}
+.qrb:hover{background:#00a88415;border-color:#00a884}
+.chi{border-top:1px solid #2a3942;padding:7px 10px;display:flex;gap:6px;align-items:center;background:#1f2c34}
+.chi input{flex:1;background:#2a3942;border:none;border-radius:18px;padding:8px 14px;color:#e9edef;font-size:13px;outline:none;font-family:inherit}
+.chi input::placeholder{color:#8696a0}
+.chi button{width:36px;height:36px;background:#00a884;border:none;border-radius:50%;color:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.chi button:hover{background:#00c49a}.chi button:disabled{background:#2a3942;cursor:wait}
+.pw{text-align:center;padding:4px;font-size:7px;color:#667781;background:#111b21}
+.aibadge{display:inline-block;background:#7c3aed20;border:1px solid #7c3aed40;color:#a78bfa;padding:1px 6px;border-radius:4px;font-size:8px;font-weight:600;margin-left:4px}
+@media(max-width:480px){.wcht{right:4px;left:4px;width:auto;bottom:72px;max-height:66vh}.pg{grid-template-columns:repeat(2,1fr)}.shr h1{font-size:22px}.tab{padding:10px 10px;font-size:10px}.ibr{grid-template-columns:repeat(2,1fr)}.rvg{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="tabs">
+<div class="tab active" onclick="ST(this,'site')">🖥️ Site + Widget IA</div>
+<div class="tab" onclick="ST(this,'wa')">💬 WhatsApp IA</div>
+<div class="tab" onclick="ST(this,'fs')">🤖 Sommelier IA</div>
+</div>
+
+<div class="view active" id="v-site"><div class="smk">
+<div class="stb"><div style="display:flex;gap:3px"><span style="width:8px;height:8px;border-radius:50%;background:#ef4444;display:inline-block"></span><span style="width:8px;height:8px;border-radius:50%;background:#eab308;display:inline-block"></span><span style="width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block"></span></div><div style="flex:1;background:#1a1a1a;border-radius:5px;padding:4px 10px;font-size:9px;color:#71717a">🔒 mezcalmitre.com</div></div>
+<div class="ann">📦 Now shipping faster in Florida. Orders outside Florida begin shipping June 15.</div>
+<div class="snv"><div class="slg">MEZCAL MITRE</div><div class="slk"><a href="https://mezcalmitre.com/collections/shop-all" target="_blank">Shop</a><a href="https://mezcalmitre.com/collections/jaguar-collection" target="_blank">Jaguar</a><a href="https://mezcalmitre.com/blogs/mezcal-cocktail-recipes" target="_blank">Cocktails</a></div></div>
+<div class="shr"><h1>Mexico's Most <em>Gifted</em> Mezcal</h1><p>Sculptural jaguar bottles crafted in Oaxaca. Available across the United States.</p><a href="https://mezcalmitre.com/collections/shop-all" target="_blank" class="hb">SHOP MITRE COLLECTION</a></div>
+<div class="ssc"><h2>The Jaguar Collection</h2><p class="su">Sculptural bottles crafted in Oaxaca — created to be displayed, collected, and gifted.</p>
+<div class="pg">
+<div class="pcd"><img src="https://mezcalmitre.com/cdn/shop/files/FOTOS-PRODUCTOS-BANNER-MEX-ESPADIN_2.webp?v=1779994305&width=260" alt="E"><h4>Mitre Espadín</h4><div class="pr">$55.00</div><div class="tg">Black Jaguar · Gift</div></div>
+<div class="pcd"><img src="https://mezcalmitre.com/cdn/shop/files/FOTOS-PRODUCTOS-BANNER-MEX-REPOSADO_2.webp?v=1779994986&width=260" alt="R"><h4>Mitre Reposado</h4><div class="pr">$60.00</div><div class="tg">Bourbon Barrel</div></div>
+<div class="pcd"><img src="https://mezcalmitre.com/cdn/shop/files/FOTOS-PRODUCTOS-BANNER-MEX-ANCESTRAL_3.webp?v=1779994985&width=260" alt="A"><h4>Mitre Ancestral</h4><div class="pr">$90.00</div><div class="tg">Clay Pot</div></div>
+</div></div>
+<div class="ssc"><h2>Mitre Origen</h2><p class="su">Smooth. Approachable. Authentically Oaxacan.</p>
+<div class="pg">
+<div class="pcd"><img src="https://mezcalmitre.com/cdn/shop/files/mezcal-mitre-origen-750ml-us.webp?v=1771872237&width=260" alt="O"><h4>Mitre Origen</h4><div class="pr">$29.99</div><div class="tg">Mixology</div></div>
+<div class="pcd"><img src="https://mezcalmitre.com/cdn/shop/files/mezcal-mitre-origen-tamborines-bottle-750ml-us.webp?v=1771872405&width=260" alt="T"><h4>Tamborines</h4><div class="pr">$24.99</div><div class="tg">NEW! Chile</div></div>
+</div></div>
+<div class="rvs"><h2>Trusted by 500,000+ mezcal lovers.</h2><div class="rvg">
+<div class="rv"><div class="rs">★★★★★</div><p>"Mitre Ancestral blew me away. The complexity is unreal."</p><div class="ra">Jason M. · Los Angeles</div></div>
+<div class="rv"><div class="rs">★★★★★</div><p>"Origen — obsession-worthy. Made margaritas for brunch, total crowd-pleaser."</p><div class="ra">Emily R. · Austin</div></div>
+<div class="rv"><div class="rs">★★★★★</div><p>"Espadín with engraving as a gift — total hit! Will order again."</p><div class="ra">Michael S. · New York</div></div>
+</div></div>
+<div class="ibr"><div><strong>📦</strong>FREE Ship $99+</div><div><strong>🔒</strong>Secure Pay</div><div><strong>✅</strong>Guaranteed</div><div><strong>🌵</strong>Oaxaca</div></div>
+<div class="sfr">© 2026 Mezcal Mitre. Crafted in Oaxaca, Mexico. 21+</div>
+<div class="wbb" id="WB">💬<div class="nt" id="WN">1</div></div>
+<div class="wcht" id="WC">
+<div class="chh"><div class="cha">M</div><div><div class="chn">Mezcal Mitre 🥃 <span class="aibadge">IA</span></div><div class="chs">● Online 24/7</div></div></div>
+<div class="chb" id="wB"></div><div class="tp" id="wT"><span></span><span></span><span></span></div><div class="qr" id="wQ"></div>
+<div class="chi"><input id="wI" placeholder="Pregunta lo que quieras..." autocomplete="off"><button id="wS">➤</button></div>
+<div class="pw">Powered by ONE IA Technologies</div>
+</div></div></div>
+
+<div class="view" id="v-wa"><div class="wa">
+<div class="wat"><div style="color:#00a884;font-size:14px">←</div><div class="waav">M</div><div><div class="wanm">Mezcal Mitre 🥃 <span class="aibadge">IA</span></div><div class="wast">en línea</div></div></div>
+<div class="chb" id="waB"></div><div class="tp" id="waT" style="margin:0 12px 4px"><span></span><span></span><span></span></div><div class="qr" id="waQ" style="background:#1f2c34"></div>
+<div class="chi"><input id="waI" placeholder="Escribe un mensaje..." autocomplete="off"><button id="waS">➤</button></div>
+</div></div>
+
+<div class="view" id="v-fs"><div class="fsc">
+<div class="chh"><div class="cha">M</div><div><div class="chn">Mezcal Mitre AI Sommelier 🥃</div><div class="chs">● Online — Powered by ONE IA</div></div></div>
+<div class="chb" id="fB" style="min-height:70vh"></div><div class="tp" id="fT"><span></span><span></span><span></span></div><div class="qr" id="fQ"></div>
+<div class="chi"><input id="fI" placeholder="Pregunta / Ask anything..." autocomplete="off"><button id="fS">➤</button></div>
+<div class="pw">ONE IA Technologies · Datos reales de mezcalmitre.com</div>
+</div></div>
+
+<script>
+var HF_TOKEN='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';
+var HF_URL='https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta';
+
+var SYS="You are the AI sommelier and sales assistant for Mezcal Mitre (mezcalmitre.com). You are warm, passionate, knowledgeable about mezcal, and your ultimate goal is to help every customer find and BUY the perfect mezcal. You speak like a friendly expert bartender who genuinely loves what he does.\n\nCRITICAL RULES:\n- ALWAYS respond in the SAME language the user writes in. Spanish=Spanish. English=English. This is non-negotiable.\n- Be conversational and natural. Short paragraphs. No walls of text.\n- ALWAYS include specific product names and prices when relevant.\n- Proactively suggest products, combos, and upsells naturally.\n- End EVERY response with a question or call-to-action to keep the conversation moving toward a purchase.\n- Use emojis naturally but not excessively (🥃🎁✨🌶️).\n- If someone asks something personal like 'how are you', respond warmly and naturally, then guide back to mezcal.\n- If someone is hesitant, handle the objection with empathy and a solution.\n- If you don't know something, be honest and offer to connect them with the human team.\n\nPRODUCTS (REAL from mezcalmitre.com):\n1. Mitre Espadín — $55 — 750ml — Black Jaguar Bottle — 100% Espadín 42%ABV — Smoky, citrus, herbal — BEST SELLER — FREE engraving — Grand Gold 2019, Double Silver SF 2017 — Link: mezcalmitre.com/products/mezcal-mitre-artesanal-joven-100-maguey-espadin\n2. Mitre Reposado — $60 — 750ml — Jaguar — Bourbon barrel aged — Vanilla, oak, caramel — FREE engraving — Link: mezcalmitre.com/products/mezcal-mitre-artesanal-reposado\n3. Mitre Ancestral — $90 — 750ml — Jaguar — Clay pot distilled — Deep smoke, earth, herbs — Most premium — FREE engraving — Link: mezcalmitre.com/products/mezcal-mitre-ancestral-destilado-en-olla-de-barro\n4. Mitre Origen — $29.99 — 700ml — Smooth, clean agave, cocktails — Link: mezcalmitre.com/products/mezcal-mitre-origen-artesanal-joven-100-maguey-espadin\n5. Mitre Tamborines — $24.99 — 750ml — NEW! Tamarind+chile mezcal liqueur — Party starter — Link: mezcalmitre.com/products/mitre-origen-tamborines-licor-de-mezcal-artesanal-sabor-tamarindo-y-chile\n\nSHIPPING: All US. Florida=3-5 days fastest. Others=June 15, 5-7 days. FREE over $99. Cannot: AL,AR,KY,MI,MS,SC,SD,TN,UT. Adult 21+ signature. Mexico=mezcalmitre.mx. Payment: card, PayPal, Shop Pay.\n\nENGRAVING: FREE on Jaguar bottles (Espadín, Reposado, Ancestral). Name/date/message. Max ~25 chars.\n\nCOCKTAILS: Frozen Mango Tamborines(Tamborines $24.99), Mezcal Margarita(Origen $29.99), Smoky Old Fashioned(Reposado $60), Oaxacan Paloma(Origen $29.99), Mitre Negroni(Espadín $55)\n\nBRAND: Founded 2015, Claudio Román, Santiago Matatlán Oaxaca, Don Tacho 3 generations, 2nd largest independent brand, 500K+ fans, Jaguar=shamans+obsidian, 'Mexico's Most Gifted Mezcal'\n\nFREE SHIPPING COMBOS (suggest these!): Espadín($55)+Origen($30)+Tamborines($25)=$110✅ | Espadín($55)+Reposado($60)=$115✅ | Ancestral($90)+Tamborines($25)=$115✅\n\nOBJECTION HANDLING:\n- 'Too expensive' → Tamborines $24.99, Origen $29.99 are very accessible. Compare to bar prices ($15-20 per cocktail). One bottle = 12+ drinks at home.\n- 'Not sure which' → Ask 2 questions: How do you drink? Gift or personal? Then recommend ONE specific product.\n- 'Will it arrive on time?' → Florida 3-5 days, others 5-7 days from June 15. Recommend ordering early.\n- 'Never tried mezcal' → Start with Origen ($29.99) — smooth, no harsh smoke. Or Tamborines ($24.99) for something fun.\n\nIMPORTANT: You are a SALES assistant. Your job is to convert visitors into buyers. Be helpful first, but always guide toward a purchase decision.";
+
+var hist={w:[],wa:[],f:[]};
+var busy={w:false,wa:false,f:false};
+var _waR=false;
+
+function ST(el,v){
+  document.querySelectorAll('.view').forEach(function(x){x.classList.remove('active');});
+  document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active');});
+  document.getElementById('v-'+v).classList.add('active');
+  el.classList.add('active');
+  if(v==='wa'&&!_waR){boot('wa');_waR=true;}
+}
+
+document.getElementById('WB').onclick=function(){
+  var c=document.getElementById('WC');
+  c.classList.toggle('open');
+  if(c.classList.contains('open')&&hist.w.length===0) boot('w');
+  var n=document.getElementById('WN');if(n)n.style.display='none';
+};
+
+function addMsg(cid,html,type){
+  var el=document.getElementById(cid);
+  var d=document.createElement('div');
+  var now=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  d.className='cm '+(type==='b'?'cmb':'cmu');
+  d.innerHTML=html+'<div class="ct">'+now+(type==='u'?' ✓✓':'')+'</div>';
+  el.appendChild(d);
+  el.scrollTop=1e9;
+}
+
+function showQR(qid,opts,fn){
+  var el=document.getElementById(qid);
+  el.innerHTML='';
+  opts.forEach(function(o){
+    var b=document.createElement('div');
+    b.className='qrb';
+    b.textContent=o;
+    b.addEventListener('click',function(){fn(o);});
+    el.appendChild(b);
+  });
+}
+
+function fmt(t){
+  return t.replace(/^[\s\n]+/,'').replace(/[\s\n]+$/,'')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g,'<em>$1</em>')
+    .replace(/\n\n/g,'<br><br>')
+    .replace(/\n/g,'<br>')
+    .replace(/(https?:\/\/mezcalmitre\.com[^\s<,)]+)/g,'<a href="$1" target="_blank">🛒 Ver producto</a>');
+}
+
+async function callAI(msg,cid){
+  hist[cid].push({role:'user',content:msg});
+  var prompt='<|system|>\n'+SYS+'\n';
+  var ctx=hist[cid].slice(-8);
+  for(var i=0;i<ctx.length;i++){
+    prompt+=(ctx[i].role==='user'?'<|user|>\n':'<|assistant|>\n')+ctx[i].content+'\n';
+  }
+  prompt+='<|assistant|>\n';
+
+  try{
+    var r=await fetch(HF_URL,{
+      method:'POST',
+      headers:{'Authorization':'Bearer '+HF_TOKEN,'Content-Type':'application/json'},
+      body:JSON.stringify({inputs:prompt,parameters:{max_new_tokens:400,temperature:0.7,top_p:0.9,return_full_text:false,stop:['<|user|>','<|system|>','<|endoftext|>']}})
+    });
+    if(r.status===503) return{ok:false,msg:'⏳ El modelo IA está cargando. Espera 20 segundos e intenta de nuevo.'};
+    if(!r.ok){var e=await r.json().catch(function(){return{};});return{ok:false,msg:'Error: '+(e.error||r.status)};}
+    var d=await r.json();
+    var g='';
+    if(Array.isArray(d)&&d[0]) g=d[0].generated_text||'';
+    else g=d.generated_text||'';
+    g=g.replace(/<\|.*?\|>/g,'').trim();
+    if(!g) return{ok:false,fallback:true};
+    hist[cid].push({role:'assistant',content:g});
+    return{ok:true,msg:g};
+  }catch(e){
+    return{ok:false,fallback:true};
+  }
+}
+
+// Fallback local
+var _L=null;
+function isEs(t){if(/\b(hola|buenas|quiero|cuanto|cuesta|tienen|como|donde|cual|puedo|gracias|precio|comprar|regalo|mejor|favor|necesito|busco|recomienda|ayuda|español|perfecto|genial|claro|pero|porque|también|ahora|para|por|una|los|las|qué|cómo|sí|platícame|oye|estoy|estas|cómo estás|mande|dime)\b/i.test(t)){_L='es';return true;}return _L==='es';}
+function fallback(t){
+  var s=isEs(t),lo=t.toLowerCase();
+  if(/como estas|cómo estás|how are you|que tal estas|como andas/i.test(lo)) return s?'¡Muy bien, gracias por preguntar! 😊🥃 Aquí listo para ayudarte a encontrar tu mezcal perfecto. ¿Qué te trae por aquí hoy? ¿Buscas algo para ti, para regalo, o para una fiesta?':'Doing great, thanks for asking! 😊🥃 Ready to help you find your perfect mezcal. What brings you here today? Looking for yourself, a gift, or a party?';
+  if(/hola|hello|hey|hi|buenas/i.test(lo)&&lo.length<25) return s?'¡Hola! 🥃 Bienvenido a Mezcal Mitre — el mezcal más regalado de México. Soy tu sommelier virtual con IA. Puedo ayudarte a elegir tu mezcal perfecto, sugerirte cocktails, contarte sobre el grabado gratuito, resolver dudas de envío... ¡lo que necesites! ¿Por dónde empezamos?':'Hello! 🥃 Welcome to Mezcal Mitre — Mexico\'s Most Gifted Mezcal. I\'m your AI sommelier. I can help you choose your perfect mezcal, suggest cocktails, tell you about free engraving, answer shipping questions... anything! Where shall we start?';
+  if(/catálogo|catalog|productos|todo|show|ver|mezcales/i.test(lo)) return s?'🥃 Nuestra colección completa:<br><br>🖤 <strong>Espadín — $55</strong> · Botella Jaguar negra · Grabado GRATIS · BEST SELLER<br>🥃 <strong>Reposado — $60</strong> · Añejado en barricas de bourbon<br>🏺 <strong>Ancestral — $90</strong> · Destilado en olla de barro · El más premium<br>🟢 <strong>Origen — $29.99</strong> · Suave · Perfecto para cocktails<br>🌶️ <strong>Tamborines — $24.99</strong> · ¡NUEVO! Tamarindo + chile<br><br>📦 <strong>Envío GRATIS en pedidos de $99+</strong><br><br>¿Cuál te llama la atención? Te cuento todo sobre el que quieras 😊':'🥃 Our complete collection:<br><br>🖤 <strong>Espadín — $55</strong> · Black Jaguar Bottle · FREE engraving · BEST SELLER<br>🥃 <strong>Reposado — $60</strong> · Bourbon barrel aged<br>🏺 <strong>Ancestral — $90</strong> · Clay pot distilled · Most premium<br>🟢 <strong>Origen — $29.99</strong> · Smooth · Perfect for cocktails<br>🌶️ <strong>Tamborines — $24.99</strong> · NEW! Tamarind + chile<br><br>📦 <strong>FREE shipping on $99+</strong><br><br>Which one catches your eye? I can tell you everything about any of them 😊';
+  if(/regalo|gift|father|dad|papa|birthday|cumple/i.test(lo)) return s?'🎁 ¡Somos literalmente "el mezcal más regalado de México"! Mis recomendaciones:<br><br>🖤 <strong>Espadín ($55)</strong> — La botella Jaguar es espectacular + grabado personalizado GRATIS (nombre, fecha o mensaje)<br>🏺 <strong>Ancestral ($90)</strong> — El regalo ultra-premium para alguien especial<br><br>💡 <strong>Combo perfecto:</strong> Espadín ($55) + Origen ($30) + Tamborines ($25) = $110 con <strong>envío GRATIS</strong><br><br>¿Para quién es el regalo? Así te ayudo a elegir mejor 😊':'🎁 We\'re literally "Mexico\'s Most Gifted Mezcal"! My picks:<br><br>🖤 <strong>Espadín ($55)</strong> — Stunning Jaguar bottle + FREE engraving (name, date or message)<br>🏺 <strong>Ancestral ($90)</strong> — The ultra-premium gift<br><br>💡 <strong>Perfect combo:</strong> Espadín ($55) + Origen ($30) + Tamborines ($25) = $110 with <strong>FREE shipping</strong><br><br>Who\'s it for? I\'ll help you choose 😊';
+  if(/cocktail|receta|recipe|margarita|paloma|trago|preparar/i.test(lo)) return s?'🍹 ¡Excelentes recetas con Mitre!<br><br>🥭 <strong>Frozen Mango Tamborines</strong> — Tamborines + mango + limón + hielo + Tajín → usa Tamborines ($24.99)<br>🍋 <strong>Mezcal Margarita</strong> — 60ml Origen + limón + agave → usa Origen ($29.99)<br>🥃 <strong>Smoky Old Fashioned</strong> — 60ml Reposado + Angostura + agave → usa Reposado ($60)<br>🍊 <strong>Paloma Oaxaqueña</strong> — 60ml Origen + toronja + sal → usa Origen ($29.99)<br><br>¿Cuál se te antoja? Te digo exactamente qué comprar 🛒':'🍹 Amazing recipes with Mitre!<br><br>🥭 <strong>Frozen Mango Tamborines</strong> — Tamborines + mango + lime + ice + Tajín → use Tamborines ($24.99)<br>🍋 <strong>Mezcal Margarita</strong> — 2oz Origen + lime + agave → use Origen ($29.99)<br>🥃 <strong>Smoky Old Fashioned</strong> — 2oz Reposado + Angostura + agave → use Reposado ($60)<br>🍊 <strong>Oaxacan Paloma</strong> — 2oz Origen + grapefruit + salt → use Origen ($29.99)<br><br>Which one? I\'ll tell you exactly what to buy 🛒';
+  if(/envío|envio|ship|deliver|llega|cuanto tarda/i.test(lo)) return s?'📦 <strong>Envíos a todo Estados Unidos</strong><br><br>⚡ Florida: 3-5 días (más rápido)<br>📅 Otros estados: desde el 15 de junio, 5-7 días<br>🆓 <strong>GRATIS en pedidos de $99+</strong><br>💳 Tarjeta, PayPal, Shop Pay<br>⚠️ Se requiere firma de adulto (21+)<br><br>💡 Combo con envío gratis: Espadín + Origen + Tamborines = $110 ✅<br><br>¿De qué estado eres? Te confirmo el tiempo exacto.':'📦 <strong>Shipping across the US</strong><br><br>⚡ Florida: 3-5 days (fastest)<br>📅 Other states: from June 15, 5-7 days<br>🆓 <strong>FREE on orders $99+</strong><br>💳 Card, PayPal, Shop Pay<br>⚠️ Adult (21+) signature required<br><br>💡 Free shipping combo: Espadín + Origen + Tamborines = $110 ✅<br><br>What state are you in? I\'ll confirm the exact timing.';
+  if(/precio|price|cuanto|cost|how much/i.test(lo)) return s?'💰 <strong>Nuestros precios:</strong><br><br>🌶️ Tamborines — <strong>$24.99</strong><br>🟢 Origen — <strong>$29.99</strong><br>🖤 Espadín — <strong>$55.00</strong><br>🥃 Reposado — <strong>$60.00</strong><br>🏺 Ancestral — <strong>$90.00</strong><br><br>📦 Envío GRATIS arriba de $99<br><br>¿Cuál se ajusta a lo que buscas?':'💰 <strong>Our prices:</strong><br><br>🌶️ Tamborines — <strong>$24.99</strong><br>🟢 Origen — <strong>$29.99</strong><br>🖤 Espadín — <strong>$55.00</strong><br>🥃 Reposado — <strong>$60.00</strong><br>🏺 Ancestral — <strong>$90.00</strong><br><br>📦 FREE shipping over $99<br><br>Which fits what you\'re looking for?';
+  if(/grabado|engrav|personaliz|custom/i.test(lo)) return s?'✨ <strong>Grabado personalizado GRATIS</strong> en botellas Jaguar:<br><br>• Disponible en: Espadín ($55), Reposado ($60), Ancestral ($90)<br>• Puedes grabar: nombre, fecha, mensaje corto (max ~25 caracteres)<br>• ¡Sin costo extra!<br>• Perfecto para: Día del Padre, cumpleaños, bodas, regalos corporativos<br><br>¿Quieres pedir una con grabado? 🎁':'✨ <strong>FREE custom engraving</strong> on Jaguar bottles:<br><br>• Available on: Espadín ($55), Reposado ($60), Ancestral ($90)<br>• Engrave: name, date, short message (max ~25 chars)<br>• No extra cost!<br>• Perfect for: Father\'s Day, birthdays, weddings, corporate gifts<br><br>Want to order one with engraving? 🎁';
+  if(/español|spanish/i.test(lo)){_L='es';return'¡Por supuesto! 🇲🇽 Con mucho gusto te atiendo en español. Soy el sommelier virtual de Mezcal Mitre. ¿En qué te puedo ayudar?';}
+  if(/english|inglés/i.test(lo)){_L='en';return'Of course! 🇺🇸 Happy to help in English. I\'m the Mezcal Mitre virtual sommelier. How can I help?';}
+  if(/espadin/i.test(lo)) return s?'🖤 <strong>Mitre Espadín — $55</strong><br><br>Nuestra botella Jaguar negra insignia. 100% agave Espadín, 42% ABV. Notas cítricas, humo ligero, herbal. BEST SELLER. Ganador de Medalla Gran Oro 2019 y Doble Plata San Francisco 2017.<br><br>🎁 Grabado personalizado GRATIS.<br><br>👉 <a href="https://mezcalmitre.com/products/mezcal-mitre-artesanal-joven-100-maguey-espadin" target="_blank">🛒 Comprar Espadín</a><br><br>¿Te lo llevas? ¿Quieres saber sobre el grabado?':'🖤 <strong>Mitre Espadín — $55</strong><br><br>Our iconic Black Jaguar bottle. 100% Espadín agave, 42% ABV. Citrus, light smoke, herbal. BEST SELLER. Grand Gold 2019, Double Silver SF 2017.<br><br>🎁 FREE custom engraving.<br><br>👉 <a href="https://mezcalmitre.com/products/mezcal-mitre-artesanal-joven-100-maguey-espadin" target="_blank">🛒 Buy Espadín</a><br><br>Want to order one? Ask me about engraving!';
+  if(/reposado/i.test(lo)) return s?'🥃 <strong>Mitre Reposado — $60</strong><br><br>Añejado en barricas de bourbon americano. Vainilla, roble, caramelo sobre base de mezcal suave. Para tomar solo, despacio.<br><br>🎁 Grabado personalizado GRATIS.<br><br>👉 <a href="https://mezcalmitre.com/products/mezcal-mitre-artesanal-reposado" target="_blank">🛒 Comprar Reposado</a>':'🥃 <strong>Mitre Reposado — $60</strong><br><br>Aged in American bourbon barrels. Vanilla, oak, caramel with smooth mezcal backbone. For slow, contemplative sipping.<br><br>🎁 FREE engraving.<br><br>👉 <a href="https://mezcalmitre.com/products/mezcal-mitre-artesanal-reposado" target="_blank">🛒 Buy Reposado</a>';
+  if(/ancestral/i.test(lo)) return s?'🏺 <strong>Mitre Ancestral — $90</strong><br><br>Destilado en olla de barro con técnicas ancestrales. Humo profundo, tierra, hierbas silvestres. Nuestra obra maestra. El regalo más premium.<br><br>🎁 Grabado personalizado GRATIS.<br><br>👉 <a href="https://mezcalmitre.com/products/mezcal-mitre-ancestral-destilado-en-olla-de-barro" target="_blank">🛒 Comprar Ancestral</a>':'🏺 <strong>Mitre Ancestral — $90</strong><br><br>Clay pot distilled using ancestral techniques. Deep smoke, earth, wild herbs. Our masterpiece. The ultimate premium gift.<br><br>🎁 FREE engraving.<br><br>👉 <a href="https://mezcalmitre.com/products/mezcal-mitre-ancestral-destilado-en-olla-de-barro" target="_blank">🛒 Buy Ancestral</a>';
+  if(/tambor/i.test(lo)) return s?'🌶️ <strong>Mitre Tamborines — $24.99</strong><br><br>¡NUEVO! Mezcal + tamarindo + chile. Una fusión única inspirada en los dulces Tamborines. Dulce-picante e inolvidable.<br><br>👉 <a href="https://mezcalmitre.com/products/mitre-origen-tamborines-licor-de-mezcal-artesanal-sabor-tamarindo-y-chile" target="_blank">🛒 Comprar Tamborines</a><br><br>¡Prueba el Frozen Mango Tamborines — es una locura! 🥭':'🌶️ <strong>Mitre Tamborines — $24.99</strong><br><br>NEW! Mezcal + tamarind + chile. A unique fusion inspired by Tamborines candy. Sweet-spicy and unforgettable.<br><br>👉 <a href="https://mezcalmitre.com/products/mitre-origen-tamborines-licor-de-mezcal-artesanal-sabor-tamarindo-y-chile" target="_blank">🛒 Buy Tamborines</a><br><br>Try the Frozen Mango Tamborines — it\'s insane! 🥭';
+  if(/origen/i.test(lo)) return s?'🟢 <strong>Mitre Origen — $29.99</strong><br><br>700ml de suavidad pura. 100% Espadín. Agave limpio, cítrico. La introducción perfecta al mezcal. Ideal para cocktails.<br><br>👉 <a href="https://mezcalmitre.com/products/mezcal-mitre-origen-artesanal-joven-100-maguey-espadin" target="_blank">🛒 Comprar Origen</a>':'🟢 <strong>Mitre Origen — $29.99</strong><br><br>700ml of pure smoothness. 100% Espadín. Clean agave, citrus. The perfect mezcal intro. Ideal for cocktails.<br><br>👉 <a href="https://mezcalmitre.com/products/mezcal-mitre-origen-artesanal-joven-100-maguey-espadin" target="_blank">🛒 Buy Origen</a>';
+  return s?'¡Gracias por tu mensaje! 😊 Soy el sommelier virtual de Mezcal Mitre y puedo ayudarte con todo:<br><br>🥃 Nuestros 5 mezcales y sus diferencias<br>🎁 Regalos con grabado personalizado gratis<br>📦 Envíos a todo Estados Unidos<br>🍹 Recetas de cocktails<br>💰 Precios y combos con envío gratis<br><br>¿Qué te interesa? Cuéntame y te ayudo 🙌':'Thanks for your message! 😊 I\'m the Mezcal Mitre AI sommelier and I can help with anything:<br><br>🥃 Our 5 mezcals and their differences<br>🎁 Gifts with free custom engraving<br>📦 US-wide shipping<br>🍹 Cocktail recipes<br>💰 Prices and free shipping combos<br><br>What interests you? Tell me and I\'ll help 🙌';
+}
+
+function getQR(msg){
+  var s=isEs(msg),lo=msg.toLowerCase();
+  if(/hola|hello|hey|hi|buenas|como estas|how are/i.test(lo))return s?['Ver catálogo 🥃','Busco un regalo 🎁','Cocktails 🍹','Envíos 📦','Precios 💰']:['See catalog 🥃','Gift ideas 🎁','Cocktails 🍹','Shipping 📦','Prices 💰'];
+  if(/catálogo|catalog|todo|productos|ver|mezcales/i.test(lo))return['Espadín $55','Reposado $60','Ancestral $90','Origen $29.99','Tamborines $24.99'];
+  if(/regalo|gift|father|dad/i.test(lo))return s?['Con grabado ✨','El más especial','Combo envío gratis']:['With engraving ✨','Most special','Free shipping combo'];
+  if(/cocktail|receta|recipe/i.test(lo))return s?['Frozen Mango 🥭','Margarita 🍋','Old Fashioned 🥃','Comprar mezcal 🛒']:['Frozen Mango 🥭','Margarita 🍋','Old Fashioned 🥃','Buy mezcal 🛒'];
+  if(/gracias|thank|perfect|genial/i.test(lo))return[];
+  return s?['Ver mezcales','Cocktails','Envíos']:['See mezcals','Cocktails','Shipping'];
+}
+
+function makeSender(bodyId,typId,qrId,inputId,btnId,chatId){
+  return async function(val){
+    var inp=document.getElementById(inputId);
+    var v=val||inp.value.trim();
+    if(!v||busy[chatId])return;
+    busy[chatId]=true;
+    inp.value='';
+    document.getElementById(btnId).disabled=true;
+    document.getElementById(qrId).innerHTML='';
+    addMsg(bodyId,v,'u');
+    var tp=document.getElementById(typId);
+    tp.classList.add('on');tp.style.display='flex';
+    document.getElementById(bodyId).scrollTop=1e9;
+
+    var res=await callAI(v,chatId);
+
+    tp.classList.remove('on');tp.style.display='none';
+    if(res.ok){addMsg(bodyId,fmt(res.msg),'b');}
+    else if(res.fallback){addMsg(bodyId,fallback(v),'b');}
+    else{addMsg(bodyId,'<span style="color:#fca5a5;font-size:11px">'+res.msg+'</span>','b');addMsg(bodyId,fallback(v),'b');}
+
+    var qr=getQR(v);
+    var self=arguments.callee;
+    if(qr.length>0) setTimeout(function(){showQR(qrId,qr,function(o){inp.value=o;self();});},150);
+
+    busy[chatId]=false;
+    document.getElementById(btnId).disabled=false;
+    inp.focus();
+  };
+}
+
+var sendW=makeSender('wB','wT','wQ','wI','wS','w');
+var sendWa=makeSender('waB','waT','waQ','waI','waS','wa');
+var sendF=makeSender('fB','fT','fQ','fI','fS','f');
+
+document.getElementById('wS').onclick=function(){sendW();};
+document.getElementById('wI').onkeydown=function(e){if(e.key==='Enter')sendW();};
+document.getElementById('waS').onclick=function(){sendWa();};
+document.getElementById('waI').onkeydown=function(e){if(e.key==='Enter')sendWa();};
+document.getElementById('fS').onclick=function(){sendF();};
+document.getElementById('fI').onkeydown=function(e){if(e.key==='Enter')sendF();};
+
+function boot(id){
+  var bodyId={w:'wB',wa:'waB',f:'fB'}[id];
+  var qrId={w:'wQ',wa:'waQ',f:'fQ'}[id];
+  var sendFn={w:sendW,wa:sendWa,f:sendF}[id];
+  var isWa=id==='wa';
+  var msg=isWa
+    ?'¡Hola! 🥃 Bienvenido a <strong>Mezcal Mitre</strong> — el mezcal más regalado de México.<br><br>Soy tu sommelier virtual con inteligencia artificial. Puedo platicar contigo sobre nuestros mezcales, ayudarte a elegir, sugerirte cocktails, resolver dudas de envío y grabado personalizado — ¡lo que necesites!<br><br>¿En qué te puedo ayudar? 😊'
+    :'Hey! 🥃 Welcome to <strong>Mezcal Mitre</strong> — Mexico\'s Most Gifted Mezcal.<br><br>I\'m your AI sommelier. I can help you find the perfect mezcal, suggest cocktails, tell you about free custom engraving, answer shipping questions — whatever you need!<br><br>¿Hablas español? ¡Escribe en español! 🇲🇽<br><br>What can I help you with? 😊';
+  addMsg(bodyId,msg,'b');
+  var qr=isWa
+    ?['Ver catálogo 🥃','Para regalo 🎁','Cocktails 🍹','Envíos 📦','Precios 💰','English 🇺🇸']
+    :['See catalog 🥃','Gift ideas 🎁','Cocktails 🍹','Shipping 📦','Prices 💰','Español 🇲🇽'];
+  setTimeout(function(){showQR(qrId,qr,function(o){var inp=document.getElementById({w:'wI',wa:'waI',f:'fI'}[id]);inp.value=o;sendFn();});},250);
+}
+
+boot('f');
+</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a09062cb9a6a97ce',t:'MTc4MTAxMDcyNQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
